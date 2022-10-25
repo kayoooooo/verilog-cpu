@@ -1,0 +1,68 @@
+#! /usr/bin/vvp
+:ivl_version "10.3 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x55565e3a5030 .scope module, "halfAdder" "halfAdder" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "ain"
+    .port_info 1 /INPUT 1 "bin"
+    .port_info 2 /OUTPUT 1 "c"
+    .port_info 3 /OUTPUT 1 "s"
+o0x7f1fbbfea018 .functor BUFZ 1, C4<z>; HiZ drive
+o0x7f1fbbfea048 .functor BUFZ 1, C4<z>; HiZ drive
+L_0x55565e3eea70 .functor XOR 1, o0x7f1fbbfea018, o0x7f1fbbfea048, C4<0>, C4<0>;
+L_0x55565e3eeb70 .functor AND 1, o0x7f1fbbfea018, o0x7f1fbbfea048, C4<1>, C4<1>;
+v0x55565e3a53a0_0 .net "ain", 0 0, o0x7f1fbbfea018;  0 drivers
+v0x55565e3ed960_0 .net "bin", 0 0, o0x7f1fbbfea048;  0 drivers
+v0x55565e3eda20_0 .net "c", 0 0, L_0x55565e3eeb70;  1 drivers
+v0x55565e3edac0_0 .net "s", 0 0, L_0x55565e3eea70;  1 drivers
+S_0x55565e3a5220 .scope module, "main" "main" 2 16;
+ .timescale 0 0;
+v0x55565e3ee6a0_0 .var "ain", 0 0;
+v0x55565e3ee760_0 .var "bin", 0 0;
+v0x55565e3ee800_0 .net "c", 0 0, L_0x55565e3ef130;  1 drivers
+v0x55565e3ee900_0 .var "cin", 0 0;
+v0x55565e3ee9d0_0 .net "s", 0 0, L_0x55565e3eedc0;  1 drivers
+S_0x55565e3edc00 .scope module, "f0" "fullAdder" 2 20, 2 9 0, S_0x55565e3a5220;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "ain"
+    .port_info 1 /INPUT 1 "bin"
+    .port_info 2 /INPUT 1 "cin"
+    .port_info 3 /OUTPUT 1 "c"
+    .port_info 4 /OUTPUT 1 "s"
+L_0x55565e3eecb0 .functor XOR 1, v0x55565e3ee6a0_0, v0x55565e3ee760_0, C4<0>, C4<0>;
+L_0x55565e3eedc0 .functor XOR 1, L_0x55565e3eecb0, v0x55565e3ee900_0, C4<0>, C4<0>;
+L_0x55565e3eef20 .functor AND 1, v0x55565e3ee6a0_0, v0x55565e3ee760_0, C4<1>, C4<1>;
+L_0x55565e3eef90 .functor XOR 1, v0x55565e3ee6a0_0, v0x55565e3ee760_0, C4<0>, C4<0>;
+L_0x55565e3ef0c0 .functor AND 1, L_0x55565e3eef90, v0x55565e3ee900_0, C4<1>, C4<1>;
+L_0x55565e3ef130 .functor OR 1, L_0x55565e3eef20, L_0x55565e3ef0c0, C4<0>, C4<0>;
+v0x55565e3ede70_0 .net *"_s0", 0 0, L_0x55565e3eecb0;  1 drivers
+v0x55565e3edf70_0 .net *"_s4", 0 0, L_0x55565e3eef20;  1 drivers
+v0x55565e3ee050_0 .net *"_s6", 0 0, L_0x55565e3eef90;  1 drivers
+v0x55565e3ee110_0 .net *"_s8", 0 0, L_0x55565e3ef0c0;  1 drivers
+v0x55565e3ee1f0_0 .net "ain", 0 0, v0x55565e3ee6a0_0;  1 drivers
+v0x55565e3ee300_0 .net "bin", 0 0, v0x55565e3ee760_0;  1 drivers
+v0x55565e3ee3c0_0 .net "c", 0 0, L_0x55565e3ef130;  alias, 1 drivers
+v0x55565e3ee480_0 .net "cin", 0 0, v0x55565e3ee900_0;  1 drivers
+v0x55565e3ee540_0 .net "s", 0 0, L_0x55565e3eedc0;  alias, 1 drivers
+    .scope S_0x55565e3a5220;
+T_0 ;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55565e3ee6a0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55565e3ee760_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55565e3ee900_0, 0, 1;
+    %delay 10, 0;
+    %vpi_call 2 26 "$display", v0x55565e3ee9d0_0 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "cpu.v";
