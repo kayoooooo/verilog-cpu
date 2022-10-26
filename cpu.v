@@ -1,3 +1,4 @@
+// adds two bits together, outputs carry and sum
 module halfAdder(ain, bin, c, s);
 	//c is carry, s is sum
 	input ain,bin;
@@ -6,13 +7,15 @@ module halfAdder(ain, bin, c, s);
 	assign c = ain & bin;
 endmodule
 
+// adds three bits together, outputs carry and sum
 module fullAdder(ain, bin, cin, c, s);
 	input ain,bin,cin;
 	output c,s;
 	assign s = (ain ^ bin) ^ cin;
-	assign c = (ain & bin) | ((ain ^ bin) & cin) ;  
+	assign c = (ain & bin) | ((ain ^ bin) & cin);  
 endmodule
 
+// adds two 4 bit numbers, outputs 4 digit sum and single digit carry
 module fullAdder_4bit(ain, bin, c, s);
 	input [3:0] ain,bin;
 	wire c1,c2,c3;
@@ -24,16 +27,18 @@ module fullAdder_4bit(ain, bin, c, s);
 	fullAdder f2 (ain[3], bin[3], c3, c, s[3]);
 endmodule
 
+// computes "dot product" of two 4 bit numbers (bitwise and)
 module multiplier_4bit(ain, bin, p);
 	input [3:0] ain,bin;
-	output [3:0] p;
+	output [3:0] p;	
 	genvar i;
-	
-	for (i=0; i < 4; i = i + 1) begin;
+
+	for (i = 0; i < 4; i = i + 1) begin;
 		assign p[i] = (ain[i] & bin[i]);
 	end;
 endmodule
 
+// multiples two 2 bit numbers, outputs 4 bit 
 module multiply(a, b, c);
 	output [3:0] c;
 	input [1:0] a,b;
