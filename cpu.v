@@ -30,11 +30,12 @@ endmodule
 // computes "dot product" of two 4 bit numbers (bitwise and)
 module multiplier_4bit(ain, bin, p);
 	input [3:0] ain,bin;
-	output [3:0] p;	
+	output p;	
 	genvar i;
+	assign p=0;
 
 	for (i = 0; i < 4; i = i + 1) begin;
-		assign p[i] = (ain[i] & bin[i]);
+		assign p = p + (ain[i] & bin[i]);
 	end;
 endmodule
 
@@ -62,7 +63,8 @@ endmodule
 
 module main;
 	reg [3:0] ain, bin;
-	wire [3:0] s, p;
+	wire [3:0] s;
+	wire p;
 	wire c;
 	fullAdder_4bit f0 (ain, bin, c, s); 
 	multiplier_4bit m0 (ain, bin, p);
