@@ -30,13 +30,14 @@ endmodule
 // computes "dot product" of two 4 bit numbers (bitwise and)
 module multiplier_4bit(ain, bin, p);
 	input [3:0] ain,bin;
-	output p;	
+	output [3:0] p;
+	wire [3:0] f;	
 	genvar i;
-	assign p=0;
 
 	for (i = 0; i < 4; i = i + 1) begin;
-		assign p = p + (ain[i] & bin[i]);
+		assign f[i] = (ain[i] & bin[i]);
 	end;
+	assign p = f[0] + f[1] + f[2] + f[3];
 endmodule
 
 // multiples two 2 bit numbers, outputs 4 bit 
@@ -64,7 +65,7 @@ endmodule
 module main;
 	reg [3:0] ain, bin;
 	wire [3:0] s;
-	wire p;
+	wire [3:0] p;
 	wire c;
 	fullAdder_4bit f0 (ain, bin, c, s); 
 	multiplier_4bit m0 (ain, bin, p);
@@ -129,7 +130,7 @@ module main;
 			$display("multiply add function thing = %2d", (z + 16 * c1));
 		end else if (func == 2) begin;
 			#10
-			$display("pairwise and = %b", p);
+			$display("dot product = %d", p);
 		end else if (func == 1) begin; 
 			a[1] = ain[3];
 			a[0] = ain[2];
